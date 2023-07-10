@@ -15,7 +15,7 @@
                     <!-- <a href="{% url 'post_new' %}" class="top-menu"><button class="header-btn">Добавить пост</button></a> -->
                     <a href="{% url 'logout' %}" class="header-btn">Log out</a>
                 {% else %}
-                    {% comment %} <a href="{% url 'signup' %}" class="header-btn">Регистрация </a>{% endcomment %}
+                    <a href="{% url 'signup' %}" class="header-btn">Регистрация </a>
                     <a href="{% url 'login' %}" class="header-btn">Вход</a>
                 {% endif %}
             </div>

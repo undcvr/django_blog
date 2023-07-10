@@ -4,6 +4,9 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from .models import Post
 from .forms import PostForm
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 
 
@@ -41,3 +44,8 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
