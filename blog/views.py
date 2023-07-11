@@ -1,12 +1,15 @@
+from typing import Any, Dict
 from django.shortcuts import render
-from django.utils import timezone
+from django.utils import *
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
-from .models import Post
-from .forms import PostForm
+from .models import *
+from .forms import *
 from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 
 
@@ -45,7 +48,17 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
-class SignUp(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "registration/signup.html"
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            return render(request, 'blog/base.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'registration/signup.html', {'user_form': user_form})
