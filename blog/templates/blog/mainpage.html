@@ -3,7 +3,7 @@
 
 {% block content %}
     <header>
-        <img src="{% static 'images/character6.svg' %}" class='banner_human' alt="">
+        <img src="{% static 'media/character6.svg' %}" class='banner_human' alt="">
         <div class="banner-text_container">
             <h1>Поделись своими впечатлениями с нами</h1>
             {% if user.is_authenticated %}
@@ -19,7 +19,8 @@
         {% for post in posts %}
             <div class="post">
                 <h3 class="post-title">{{ post.title }}</h3>
-                <p class="author">Автор: <a class="author_link" href="">{{ post.author }}</a></p>
+                {% comment %} {% url 'profile_view' pk=profiles.pk %} {% endcomment %}
+                <a class="author_link" href="{% url 'profile_view' pk=post.author.pk %}">@{{ post.author }}</a>
                 <p class="publish_date">{{ post.published_date }}</p>
                 <p class="post_minidesc">{{ post.text }}</p>
                 <a href="{% url 'post_detail' pk=post.pk %}"><button class="main-btn">подробнее</button></a>

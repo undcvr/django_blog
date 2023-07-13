@@ -6,12 +6,45 @@ from django.shortcuts import redirect
 from .models import *
 from .forms import *
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+import regex
+from django.views.generic.detail import DetailView
+# from django.views.generic.edit import CreateView, FormView
+# from django.contrib.auth.mixins import LoginRequiredMixin
+
+class ShowProfilePageView(DetailView):
+    model = Profile
+    template_name = 'profile/profile.html'
+
+    def get_context_data(self, *args, **kwargs):
+        users = Profile.objects.all()
+        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
+        page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
+        context['page_user'] = page_user
+        return context
 
 
+# @login_required
+# def profile(request):
+#     # profile = Profile.objects.create(user=request.user)
+#     profile = request.user.profile
+#     return render(request, 'profile/profile.html', {'profile': profile})
 
+# @login_required
+# def edit_profile(request):
+#     profile = request.user.profile
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('profile:profile')
+#     else:
+#         form = ProfileForm(instance=profile)
+#     return render(request, 'profile/edit_profile.html', {'form': form})
 
+# def profile_view(request, pk=None):
+#     profiles = get_object_or_404(Profile, pk=pk)
+#     return render(request, 'profile/profile_view.html', {'profiles': profiles})
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')

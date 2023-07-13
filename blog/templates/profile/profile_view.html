@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="post">
+        {% comment %} {% if user.is_authenticated %}
+        <a class="main-btn" href="{% url 'post_edit' pk=post.pk %}">Изменить</span></a>
+        {% endif %} {% endcomment %}
+        <img class='profile_pic' src="{{ profile.profile_pic.url }}" alt="">
+        <h3 class='post-title'>{{ profile.user.username }}</h3>
+        <p class="publish_date">{{ profile.bio|linebreaksbr }}</p>
+    </div>
+</div>
+{% endblock %}

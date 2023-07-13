@@ -89,8 +89,7 @@ header {
     color: white;
 }
 .main-btn {
-    width: 150px;
-    height: 30px;
+    padding: 5 30px;
     background: none;
     font-size: 14px;
     border: 2px solid black;
@@ -111,7 +110,6 @@ header {
 .posts_nonp {
     font-size: 20px;
     margin-top: 50px;
-    margin-bottom: 50px;
 }
 .container {
     width: 45vw;
@@ -125,6 +123,7 @@ header {
     text-transform: uppercase;
     color: #000000;
     font-size: 32px;
+    margin-top: 50px;
 }
 .post-title a{
     color: #000000;
@@ -136,7 +135,7 @@ header {
     overflow: hidden
 }
 
-.author a{
+.author_link{
     color: rgb(0, 0, 151);
     font-weight: bold;
 }
@@ -150,7 +149,7 @@ header {
     width: 100%;
 }
 .post {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 .post h1 a, .post h1 a:visited {
     color: #000000;

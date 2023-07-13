@@ -2,6 +2,7 @@ from django import forms
 from .models import Post
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import *
 
 class PostForm(forms.ModelForm):
 
@@ -23,6 +24,10 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['name', 'bio', 'profile_pic']
       
 # class SignUpUserForm(UserCreationForm):
 #     username = forms.CharField(label='login', widget=forms.TextInput(attrs={'class': 'form_input'})),
